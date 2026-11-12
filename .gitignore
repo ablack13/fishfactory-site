@@ -6,3 +6,7 @@ requirements/
 .DS_Store
 *.swp
 __pycache__/
+
+# Kept locally, not published
+README.md
+tools/
