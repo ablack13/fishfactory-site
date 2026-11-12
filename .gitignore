@@ -1,0 +1,8 @@
+# Not part of the published site
+requirements/
+.idea/
+
+# OS / editor noise
+.DS_Store
+*.swp
+__pycache__/
