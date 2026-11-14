@@ -4,6 +4,8 @@
 
   var root = document.documentElement;
   var isWebView = root.classList.contains("webview");
+  // In-app links (other pages, mailto:, outside sites) are left untouched:
+  // the app opens anything that is not the current page outside the WebView.
 
   /* ---- Mobile navigation ---- */
   var toggle = document.querySelector(".nav-toggle");
@@ -84,23 +86,4 @@
     toc.open = true;
   }
 
-  /* ---- WebView mode: keep ?webview=1 (and theme) when moving between documents ---- */
-  if (isWebView) {
-    var params = new URLSearchParams(window.location.search);
-    document.querySelectorAll("a[href]").forEach(function (a) {
-      var href = a.getAttribute("href");
-      if (!href || href.charAt(0) === "#" || /^(mailto:|tel:)/i.test(href)) return;
-      var url;
-      try {
-        url = new URL(href, window.location.href);
-      } catch (err) {
-        return;
-      }
-      if (url.origin !== window.location.origin) return;
-      url.searchParams.set("webview", "1");
-      var theme = params.get("theme");
-      if (theme) url.searchParams.set("theme", theme);
-      a.setAttribute("href", url.pathname + url.search + url.hash);
-    });
-  }
 })();
